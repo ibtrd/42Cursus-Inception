@@ -3,9 +3,11 @@ services:
     build: ./requirements/nginx
     container_name: nginx
     ports:
-      - "443:443"
+      - "${NGINX_PORT}:${NGINX_PORT}"
     networks:
       - inception
+    restart:
+      on-failure
 
   wordpress:
     build: ./requirements/wordpress
@@ -15,12 +17,16 @@ services:
       - /home/ibertran/data/website
     networks:
       - inception
+    restart:
+      on-failure
 
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb
     networks:
       - inception
+    restart:
+      on-failure
 
 networks:
   inception:
