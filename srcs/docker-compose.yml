@@ -1,2 +1,27 @@
 services:
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    ports:
+      - "443:443"
+    networks:
+      - inception
 
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    volumes:
+      - /home/ibertran/data/wp-database
+      - /home/ibertran/data/website
+    networks:
+      - inception
+
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    networks:
+      - inception
+
+networks:
+  inception:
+    driver: bridge
