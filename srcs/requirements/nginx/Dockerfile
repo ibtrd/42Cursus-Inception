@@ -18,4 +18,7 @@ RUN apk update && \
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
+# COPY test.html /usr/share/nginx/
+EXPOSE 443
+
 CMD ["nginx", "-g", "daemon off;"]

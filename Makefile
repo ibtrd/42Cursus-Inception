@@ -15,8 +15,8 @@ NAME := inception
 COMPOSE_FILE := ./srcs/docker-compose.yml
 
 up: down
-	docker-compose -p $(NAME) -f $(COMPOSE_FILE) up --build
+	docker compose -p $(NAME) -f $(COMPOSE_FILE) up --build
 
 PHONY: down
 down:
-	-docker-compose down
+	docker compose -f $(COMPOSE_FILE) down
