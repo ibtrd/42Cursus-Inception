@@ -3,10 +3,12 @@ services:
     build: ./requirements/nginx
     container_name: nginx
     ports:
-      - "80:80"
       - "443:443"
     networks:
       - main
+    secrets:
+      - ssl_cert
+      - ssl_key
     restart:
       on-failure
 
@@ -35,3 +37,9 @@ networks:
     driver: bridge
   db:
     driver: bridge
+
+secrets:
+  ssl_cert:
+    file: ../secrets/ibertran.42.fr.crt
+  ssl_key:
+    file: ../secrets/ibertran.42.fr.key
