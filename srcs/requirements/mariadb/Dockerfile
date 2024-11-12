@@ -12,13 +12,8 @@
 
 FROM alpine:3.19
 
-RUN apk update && \
-	apk upgrade && \
-	apk add --no-cache mariadb && \
+RUN apk add --no-cache mariadb
 
 EXPOSE 3306
 
-ENV MYSQL_ROOT_PASSWORD=myadminpassword
-
-# ENTRYPOINT ["tail", "-f", "/dev/null"]
-CMD ["mariadbd"]
+CMD ["mysqld_safe"]

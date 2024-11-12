@@ -12,10 +12,17 @@
 
 FROM alpine:3.19
 
-RUN apk update && \
-	apk upgrade && \
-	apk add php-fpm
+RUN apk add --no-cache php82-fpm \
+	curl
+
+WORKDIR /var/www/
+
+RUN curl -O https://wordpress.org/latest.tar.gz && \
+	tar -xvzf latest.tar.gz && \
+	rm -rf latest.tar.gz
+
+COPY  www.conf /etc/php82/php-fpm.d/www.conf
 
 EXPOSE 9000
 
-CMD ["cat"]
+CMD ["php-fpm82", "-F"]

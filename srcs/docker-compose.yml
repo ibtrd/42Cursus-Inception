@@ -1,41 +1,42 @@
 services:
   nginx:
-    build: ./requirements/nginx
+    build: requirements/nginx
     container_name: nginx
+    volumes:
+      - ../web:/var/www/html
     ports:
       - "443:443"
     networks:
-      - main
+      - wp-network
     secrets:
       - ssl_cert
       - ssl_key
     restart:
       on-failure
 
-  # wordpress:
-  #   build: ./requirements/wordpress
-  #   container_name: wordpress
-  #   volumes:
-  #     - /home/ibertran/data/wp-database
-  #     - /home/ibertran/data/website
-  #   networks:
-  #     - main
-  #     - db
-  #   restart:
-  #     on-failure
+  wordpress:
+    build: requirements/wordpress
+    container_name: wordpress
+    volumes:
+      - ../web:/var/www/html
+    networks:
+      - wp-network
+      - db-network
+    restart:
+      on-failure
 
-  # mariadb:
-  #   build: ./requirements/mariadb
-  #   container_name: mariadb
-  #   networks:
-  #     - db
-  #   restart:
-  #     on-failure
+  mariadb:
+    build: requirements/mariadb
+    container_name: mariadb
+    networks:
+      - db-network
+    restart:
+      on-failure
 
 networks:
-  main:
+  wp-network:
     driver: bridge
-  db:
+  db-network:
     driver: bridge
 
 secrets:

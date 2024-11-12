@@ -12,13 +12,9 @@
 
 FROM alpine:3.19
 
-RUN apk update && \
-	apk upgrade && \
-	apk add nginx
+RUN apk add --no-cache nginx
 
 COPY nginx.conf /etc/nginx/nginx.conf
-
-COPY *.html /usr/share/nginx/
 
 EXPOSE 443
 
