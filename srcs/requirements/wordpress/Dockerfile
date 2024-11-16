@@ -15,14 +15,13 @@ FROM alpine:3.19
 RUN apk add --no-cache php82-fpm \
 	curl
 
-WORKDIR /var/www/
-
-RUN curl -O https://wordpress.org/latest.tar.gz && \
-	tar -xvzf latest.tar.gz && \
-	rm -rf latest.tar.gz
+WORKDIR /var/www/html
 
 COPY  www.conf /etc/php82/php-fpm.d/www.conf
 
+COPY tools/start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
 EXPOSE 9000
 
-CMD ["php-fpm82", "-F"]
+ENTRYPOINT [ "start.sh" ]
