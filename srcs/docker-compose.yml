@@ -3,7 +3,7 @@ services:
     build: requirements/nginx
     container_name: nginx
     volumes:
-      - ../web:/var/www/html
+      - $HOME/data/wp-website:/var/www/html
     ports:
       - "443:443"
     networks:
@@ -18,7 +18,7 @@ services:
     build: requirements/wordpress
     container_name: wordpress
     volumes:
-      - ../web:/var/www/html
+      - wp-website:/www/html
     networks:
       - wp-network
       - db-network
@@ -29,11 +29,26 @@ services:
     build: requirements/mariadb
     container_name: mariadb
     volumes:
-      - ../dbvolume:/var/lib/mysql
+      - wp-database:/var/lib/mysql
     networks:
       - db-network
     restart:
       on-failure
+
+volumes:
+  wp-website:
+    driver: local
+    driver_opts:
+      type: none
+      device: $VOLUMES_DIR
+      o: bind
+  
+  wp-database:
+    driver: local
+    driver_opts:
+      type: none
+      device: $VOLUMES_DIR
+      o: bind
 
 networks:
   wp-network:
