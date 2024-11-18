@@ -26,6 +26,7 @@ VOL_NAMES := \
 	wp-database
 VOLUMES := $(addprefix $(VOL_DIR), $(VOL_NAMES))
 
+
 # **************************************************************************** #
 
 .PHONY: detach
@@ -34,11 +35,11 @@ detach: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
 
 .PHONY: up
 up: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
-	$(COMPOSE_CMD) up
+	$(COMPOSE_CMD) up --build
 
-.PHONY: down
-down:
-	$(COMPOSE_CMD) down
+.PHONY: restart
+restart:
+	$(COMPOSE_CMD) restart
 
 .PHONY: build
 build: $(SSL_CERT) $(SSL_KEY)

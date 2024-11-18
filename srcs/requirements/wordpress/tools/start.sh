@@ -5,7 +5,5 @@ if [ ! -d $PWD/wordpress ]; then
 		tar -xvzf latest.tar.gz && \
 		rm -rf latest.tar.gz
 fi
-chown -R www-data:www-data /var/www/html
-chmod -R 755 /var/www/html
 
 php-fpm82 -F

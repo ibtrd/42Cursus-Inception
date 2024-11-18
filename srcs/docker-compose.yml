@@ -25,15 +25,20 @@ services:
     restart:
       on-failure
 
-  # mariadb:
-  #   build: requirements/mariadb
-  #   container_name: mariadb
-  #   volumes:
-  #     - wp-database:/var/lib/mysql
-  #   networks:
-  #     - db-network
-  #   restart:
-  #     on-failure
+  mariadb:
+    build: requirements/mariadb
+    container_name: mariadb
+    volumes:
+      - wp-database:/var/lib/mysql
+    networks:
+      - db-network
+    secrets:
+      -  mysql_root_password
+      -  mysql_database
+      -  mysql_user
+      -  mysql_password
+    restart:
+      on-failure
 
 volumes:
   wp-website:
@@ -61,3 +66,12 @@ secrets:
     file: ../secrets/ibertran.42.fr.crt
   ssl_key:
     file: ../secrets/ibertran.42.fr.key
+  mysql_root_password:
+    file: ../secrets/mysql_root_password.txt
+  mysql_database:
+    file: ../secrets/mysql_database.txt
+  mysql_user:
+    file: ../secrets/mysql_user.txt
+  mysql_password:
+    file: ../secrets/mysql_password.txt
+

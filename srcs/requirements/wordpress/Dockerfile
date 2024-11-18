@@ -12,10 +12,7 @@
 
 FROM alpine:3.19
 
-RUN apk add --no-cache php82-fpm \
-	curl
-
-RUN adduser -S -G www-data www-data
+RUN apk add --no-cache php82-fpm php82-mysqli curl
 
 WORKDIR /var/www/html
 
