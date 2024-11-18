@@ -24,33 +24,33 @@ VOL_DIR := $(HOME)/data/
 VOL_NAMES := \
 	wp-website \
 	wp-database
-VOLULES := $(addsuffix $(VOL_DIR), $(VOL_NAMES))
+VOLUMES := $(addprefix $(VOL_DIR), $(VOL_NAMES))
 
 # **************************************************************************** #
 
 .PHONY: detach
-detach: $(SSL_CERT) $(SSL_KEY) | $(VOL_DIR)
+detach: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
 	$(COMPOSE_CMD) up --build -d
 
 .PHONY: up
-up: $(SSL_CERT) $(SSL_KEY) | $(VOL_DIR)
+up: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
 	$(COMPOSE_CMD) up --build
 
 .PHONY: down
 down:
 	$(COMPOSE_CMD) down
 
-.PHONY: build | $(VOL_DIR)
+.PHONY: build
 build: $(SSL_CERT) $(SSL_KEY)
 	$(COMPOSE_CMD) build
 
-$(VOL_DIR) $(SECRETS_DIR):
+$(VOLUMES) $(SECRETS_DIR):
 	mkdir -p $@
 
 .PHONY: fclean
 fclean:
 	$(COMPOSE_CMD) rm -vsf
-	$(RM) -r $(VOL_DIR)
+	for VOL in $(VOL_NAMES); do docker volume rm $(NAME)_$$VOL; done
 
 # **************************************************************************** #
 

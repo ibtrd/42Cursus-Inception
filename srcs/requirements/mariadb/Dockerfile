@@ -20,10 +20,10 @@ RUN chown -R mysql:mysql /var/lib/mysql /run/mysqld
 COPY 50-server.cnf /etc/mysql/mariadb.conf.d/
 COPY initdb.sql /docker-entrypoint-initdb.d/initdb.sql
 
-EXPOSE 3306
-
 USER mysql
 
 RUN mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+
+EXPOSE 3306
 
 ENTRYPOINT [ "mysqld" ]

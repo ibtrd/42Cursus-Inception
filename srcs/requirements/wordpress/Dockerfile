@@ -17,7 +17,7 @@ RUN apk add --no-cache php82-fpm \
 
 WORKDIR /var/www/html
 
-COPY  www.conf /etc/php82/php-fpm.d/www.conf
+COPY conf/www.conf /etc/php82/php-fpm.d/www.conf
 
 COPY tools/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh

@@ -3,7 +3,7 @@ services:
     build: requirements/nginx
     container_name: nginx
     volumes:
-      - $HOME/data/wp-website:/var/www/html
+      - wp-website:/var/www/html
     ports:
       - "443:443"
     networks:
@@ -14,40 +14,40 @@ services:
     restart:
       on-failure
 
-  wordpress:
-    build: requirements/wordpress
-    container_name: wordpress
-    volumes:
-      - wp-website:/var/www/html
-    networks:
-      - wp-network
-      - db-network
-    restart:
-      on-failure
+  # wordpress:
+  #   build: requirements/wordpress
+  #   container_name: wordpress
+  #   volumes:
+  #     - wp-website:/var/www/html
+  #   networks:
+  #     - wp-network
+  #     - db-network
+  #   restart:
+  #     on-failure
 
-  mariadb:
-    build: requirements/mariadb
-    container_name: mariadb
-    volumes:
-      - wp-database:/var/lib/mysql
-    networks:
-      - db-network
-    restart:
-      on-failure
+  # mariadb:
+  #   build: requirements/mariadb
+  #   container_name: mariadb
+  #   volumes:
+  #     - wp-database:/var/lib/mysql
+  #   networks:
+  #     - db-network
+  #   restart:
+  #     on-failure
 
 volumes:
   wp-website:
     driver: local
     driver_opts:
       type: none
-      device: /home/ibertran/wp-website
+      device: /home/ibertran/data/wp-website
       o: bind
   
   wp-database:
     driver: local
     driver_opts:
       type: none
-      device: /home/ibertran/wp-database
+      device: /home/ibertran/data/wp-database
       o: bind
 
 networks:
