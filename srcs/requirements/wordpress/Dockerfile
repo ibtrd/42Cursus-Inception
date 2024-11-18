@@ -15,6 +15,8 @@ FROM alpine:3.19
 RUN apk add --no-cache php82-fpm \
 	curl
 
+RUN adduser -S -G www-data www-data
+
 WORKDIR /var/www/html
 
 COPY conf/www.conf /etc/php82/php-fpm.d/www.conf

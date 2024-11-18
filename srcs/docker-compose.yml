@@ -14,16 +14,16 @@ services:
     restart:
       on-failure
 
-  # wordpress:
-  #   build: requirements/wordpress
-  #   container_name: wordpress
-  #   volumes:
-  #     - wp-website:/var/www/html
-  #   networks:
-  #     - wp-network
-  #     - db-network
-  #   restart:
-  #     on-failure
+  wordpress:
+    build: requirements/wordpress
+    container_name: wordpress
+    volumes:
+      - wp-website:/var/www/html
+    networks:
+      - wp-network
+      - db-network
+    restart:
+      on-failure
 
   # mariadb:
   #   build: requirements/mariadb

@@ -30,11 +30,11 @@ VOLUMES := $(addprefix $(VOL_DIR), $(VOL_NAMES))
 
 .PHONY: detach
 detach: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
-	$(COMPOSE_CMD) up --build -d
+	$(COMPOSE_CMD) up -d --build
 
 .PHONY: up
 up: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
-	$(COMPOSE_CMD) up --build
+	$(COMPOSE_CMD) up
 
 .PHONY: down
 down:
