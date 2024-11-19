@@ -52,8 +52,13 @@ build: $(SSL_CERT) $(SSL_KEY)
 $(VOLUMES) $(SECRETS_DIR):
 	mkdir -p $@
 
+.PHONY: exec-%
 exec-%:
 	docker exec -it $(shell echo $(patsubst exec-%,%,$@) | sed 's/-/ /g')
+
+.PHONY: sh-%
+sh-%:
+	docker exec -it $(patsubst sh-%,%,$@) sh
 
 .PHONY: fclean
 fclean: down

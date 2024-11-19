@@ -5,7 +5,8 @@
 wp core is-installed
 if [ ! $? -eq 0 ]; then
 	wp core download
-# 	wp config create
+	# wp config create --dbhost=mariadb:3306 --dbname=wordpress --dbuser=wordpress	\
+
 # 	wp core install \
 #         --url="https://www.ibertran.42.fr" \
 #         --title="Inception" \
