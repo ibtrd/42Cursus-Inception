@@ -1,3 +1,4 @@
 secrets/
 .env
 wp-website
+data

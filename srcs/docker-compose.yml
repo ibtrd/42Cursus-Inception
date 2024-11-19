@@ -3,7 +3,7 @@ services:
     build: requirements/nginx
     container_name: nginx
     volumes:
-      - wp-website:/var/www/html
+      - wp-website:/website
     ports:
       - "443:443"
     networks:
@@ -18,7 +18,7 @@ services:
     build: requirements/wordpress
     container_name: wordpress
     volumes:
-      - wp-website:/var/www/html
+      - wp-website:/website
     networks:
       - wp-network
       - db-network
@@ -74,4 +74,3 @@ secrets:
     file: ../secrets/mysql_user.txt
   mysql_password:
     file: ../secrets/mysql_password.txt
-

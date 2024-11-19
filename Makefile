@@ -37,6 +37,10 @@ detach: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
 up: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
 	$(COMPOSE_CMD) up --build
 
+.PHONY: down
+down: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
+	$(COMPOSE_CMD) down
+
 .PHONY: restart
 restart:
 	$(COMPOSE_CMD) restart
@@ -48,10 +52,14 @@ build: $(SSL_CERT) $(SSL_KEY)
 $(VOLUMES) $(SECRETS_DIR):
 	mkdir -p $@
 
+exec-%:
+	docker exec -it $(shell echo $(patsubst exec-%,%,$@) | sed 's/-/ /g')
+
 .PHONY: fclean
-fclean:
-	$(COMPOSE_CMD) rm -vsf
-	for VOL in $(VOL_NAMES); do docker volume rm $(NAME)_$$VOL; done
+fclean: down
+	-$(COMPOSE_CMD) rm
+	-for VOL in $(VOL_NAMES); do docker volume rm $(NAME)_$$VOL; done
+	-sudo rm -rf $$HOME/data
 
 # **************************************************************************** #
 
