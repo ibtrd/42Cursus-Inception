@@ -8,6 +8,8 @@ services:
       - "443:443"
     networks:
       - wp-network
+    environment:
+      - DOMAIN=${DOMAIN}
     secrets:
       - ssl_cert
       - ssl_key
@@ -23,6 +25,7 @@ services:
       - wp-network
       - db-network
     environment:
+      - DOMAIN=${DOMAIN}
       - WP_THEME=${WP_THEME}
     secrets:
       -  mysql_database

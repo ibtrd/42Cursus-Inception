@@ -13,7 +13,7 @@ if ! wp core is-installed ; then
 		--dbuser=$(cat /run/secrets/mysql_user) \
 		--dbpass=$(cat /run/secrets/mysql_password)
 	wp core install \
-		--url=ibertran.42.fr \
+		--url=$DOMAIN \
 		--title=Inception \
 		--admin_user=$(cat /run/secrets/wp_admin) \
 		--admin_email=$(cat /run/secrets/wp_admin_email) \
