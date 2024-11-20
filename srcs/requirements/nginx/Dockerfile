@@ -14,7 +14,7 @@ FROM alpine:3.19
 
 RUN apk add --no-cache nginx
 
-COPY conf/nginx.conf /etc/nginx/nginx.conf
+COPY conf/default.conf /etc/nginx/http.d/default.conf
 
 EXPOSE 443
 

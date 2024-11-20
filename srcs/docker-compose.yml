@@ -22,6 +22,8 @@ services:
     networks:
       - wp-network
       - db-network
+    environment:
+      - WP_THEME=${WP_THEME}
     secrets:
       -  mysql_database
       -  mysql_user
