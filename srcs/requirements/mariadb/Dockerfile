@@ -16,7 +16,7 @@ RUN apk add --no-cache mariadb mariadb-client envsubst moreutils
 
 RUN mkdir -p /var/lib/mysql /run/mysqld && chown mysql:mysql /var/lib/mysql /run/mysqld
 
-COPY conf/my.cnf /etc/my.cnf
+COPY conf/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 COPY tools/initdb.sql /run/initdb.sql
 COPY tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh

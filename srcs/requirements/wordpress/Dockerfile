@@ -12,7 +12,7 @@
 
 FROM alpine:3.19
 
-RUN apk add --no-cache php82-fpm php82-mysqli php82-phar php-curl curl
+RUN apk add --no-cache php82-fpm php82-mysqli php82-phar php82-mbstring php82-iconv php-curl curl
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 	chmod +x wp-cli.phar && \

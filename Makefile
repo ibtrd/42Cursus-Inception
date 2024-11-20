@@ -13,7 +13,7 @@
 NAME := inception
 WEBSITE := ibertran.42.fr
 
-SECRETS_DIR := secrets/
+SECRETS_DIR := secrets/ssl/
 SSL_CERT := $(SECRETS_DIR)$(WEBSITE).crt
 SSL_KEY := $(SECRETS_DIR)$(WEBSITE).key
 
@@ -65,6 +65,10 @@ fclean: down
 	-$(COMPOSE_CMD) rm
 	-for VOL in $(VOL_NAMES); do docker volume rm $(NAME)_$$VOL; done
 	-sudo rm -rf $$HOME/data
+
+.PHONY: re
+re: fclean
+	$(MAKE)
 
 # **************************************************************************** #
 
