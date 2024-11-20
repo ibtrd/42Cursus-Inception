@@ -1,17 +1,11 @@
 #!/bin/sh
-
 set -e
 
-# until mysqladmin ping -h"mariadb:9000" --silent; do
-#     sleep 1
-# done
-
-if [ ! -d "/var/lib/mysql/mysql" ]; then
-	export MYSQL_DATABASE=$(cat /run/secrets/mysql_database)
-	export MYSQL_ROOT_PASSWORD=$(cat /run/secrets/mysql_root_password)
-	export MYSQL_PASSWORD=$(cat /run/secrets/mysql_password)
-	export MYSQL_USER=$(cat /run/secrets/mysql_user)
-    mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-fi
-
-exec mysqld
+export MYSQL_DATABASE=$(cat /run/secrets/mysql_database)
+export MYSQL_ROOT_PASSWORD=$(cat /run/secrets/mysql_root_password)
+export MYSQL_ADMIN=$(cat /run/secrets/mysql_admin)
+export MYSQL_ADMIN_PASSWORD=$(cat /run/secrets/mysql_admin_password)
+export MYSQL_USER=$(cat /run/secrets/mysql_user)
+export MYSQL_USER_PASSWORD=$(cat /run/secrets/mysql_user_password)
+envsubst < /run/initdb.sql | sponge /run/initdb.sql
+exec $@ --init-file=/run/initdb.sql

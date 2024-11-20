@@ -5,7 +5,7 @@
 wp core is-installed
 if [ ! $? -eq 0 ]; then
 	wp core download
-	# wp config create --dbhost=mariadb:3306 --dbname=wordpress --dbuser=wordpress	\
+	wp config create --dbhost=mariadb:3306 --dbname=wordpress --dbuser=wp-admin
 
 # 	wp core install \
 #         --url="https://www.ibertran.42.fr" \
@@ -16,4 +16,4 @@ if [ ! $? -eq 0 ]; then
 #         --allow-root
 fi
 
-php-fpm82 -F
+exec $@

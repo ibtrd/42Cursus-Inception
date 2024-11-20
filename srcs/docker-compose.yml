@@ -22,6 +22,13 @@ services:
     networks:
       - wp-network
       - db-network
+    secrets:
+      -  mysql_database
+      -  mysql_root_password
+      -  mysql_admin
+      -  mysql_admin_password
+      -  mysql_user
+      -  mysql_user_password
     restart:
       on-failure
 
@@ -33,10 +40,12 @@ services:
     networks:
       - db-network
     secrets:
-      -  mysql_root_password
       -  mysql_database
+      -  mysql_root_password
+      -  mysql_admin
+      -  mysql_admin_password
       -  mysql_user
-      -  mysql_password
+      -  mysql_user_password
     restart:
       on-failure
 
@@ -66,11 +75,15 @@ secrets:
     file: ../secrets/ibertran.42.fr.crt
   ssl_key:
     file: ../secrets/ibertran.42.fr.key
-  mysql_root_password:
-    file: ../secrets/mysql_root_password.txt
   mysql_database:
     file: ../secrets/mysql_database.txt
+  mysql_root_password:
+    file: ../secrets/mysql_root_password.txt
+  mysql_admin:
+    file: ../secrets/mysql_admin.txt
+  mysql_admin_password:
+    file: ../secrets/mysql_admin_password.txt
   mysql_user:
     file: ../secrets/mysql_user.txt
-  mysql_password:
-    file: ../secrets/mysql_password.txt
+  mysql_user_password:
+    file: ../secrets/mysql_user_password.txt
