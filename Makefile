@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 04:49:05 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/03 06:33:15 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/11/20 20:16:13 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,11 @@ VOLUMES := $(addprefix $(VOL_DIR), $(VOL_NAMES))
 
 .PHONY: detach
 detach: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
-	$(COMPOSE_CMD) up -d --build
+	$(COMPOSE_CMD) up -d
 
 .PHONY: up
 up: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
-	$(COMPOSE_CMD) up --build
+	$(COMPOSE_CMD) up
 
 .PHONY: down
 down: $(SSL_CERT) $(SSL_KEY) | $(VOLUMES)
@@ -68,6 +68,7 @@ fclean: down
 
 .PHONY: re
 re: fclean
+	$(MAKE) build
 	$(MAKE)
 
 # **************************************************************************** #
