@@ -16,7 +16,11 @@ services:
       on-failure
 
   wordpress:
-    build: requirements/wordpress
+    build:
+      context: requirements/wordpress
+      args:
+        - WP_CLI_URL=${WP_CLI_URL}
+    
     volumes:
       - wp-website:/website
     networks:
