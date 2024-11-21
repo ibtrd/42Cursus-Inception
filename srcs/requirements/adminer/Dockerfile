@@ -5,20 +5,13 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/20 17:39:50 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/20 22:12:22 by ibertran         ###   ########lyon.fr    #
+#    Created: 2024/11/20 21:51:14 by ibertran          #+#    #+#              #
+#    Updated: 2024/11/20 22:07:57 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 FROM alpine:3.19
 
-RUN apk add --no-cache redis
+RUN apk add --no-cache adminer
 
-# COPY conf/redis.conf /etc/redis.conf
-
-EXPOSE 6379
-
-WORKDIR /data
-
-ENTRYPOINT [ "redis-server" ]
-CMD [ "--protected-mode no" ]
+ENTRYPOINT [ "tail" , "-f", "/dev/null" ]

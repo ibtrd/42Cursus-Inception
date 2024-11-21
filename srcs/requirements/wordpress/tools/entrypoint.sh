@@ -30,7 +30,7 @@ if ! wp core is-installed ; then
 		--user_pass=$(cat /run/secrets/wp_user_password)
 	
 	# SETUP REDIS CACHE
-	wp config set WP_REDIS_DISABLED false --raw
+	# wp config set WP_REDIS_DISABLED false --raw
 	wp config set WP_REDIS_HOST 'redis'
 	wp config set WP_REDIS_PORT 6379 --raw
 	wp config set WP_REDIS_MAXTTL 3600 --raw

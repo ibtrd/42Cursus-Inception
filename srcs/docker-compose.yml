@@ -59,6 +59,9 @@ services:
     networks:
       - wp-network
 
+  # adminer:
+  #   build: requirements/adminer
+
 volumes:
   wp-website:
     driver: local
