@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ENTRY_ARGS="$@"
+
 until nc -z -v mariadb 3306; do
 	sleep 1
 done
@@ -16,18 +18,26 @@ if ! wp core is-installed ; then
 		--dbpass=$(cat /run/secrets/mysql_password)
 
 	# CREATE ADMINISTRATOR
+	set -- $(head -1 /run/secrets/wp_credentials)
 	wp core install \
 		--url=$DOMAIN \
 		--title=Inception \
-		--admin_user=$(cat /run/secrets/wp_admin) \
-		--admin_email=$(cat /run/secrets/wp_admin_email) \
-		--admin_password=$(cat /run/secrets/wp_admin_password)
+		--admin_user=$1 \
+		--admin_email=$2 --skip-email \
+		--admin_password=$3
 
-	# CREATE ADDITIONNAL USER
-	wp user create \
-		$(cat /run/secrets/wp_user) \
-		$(cat /run/secrets/wp_user_email) \
-		--user_pass=$(cat /run/secrets/wp_user_password)
+	# CREATE ADDITIONNAL USERS
+	ADMIN=true
+	while read LINE
+	do
+		if [ "$ADMIN" = true ]; then
+			ADMIN=false
+			continue
+		fi
+
+		set -- $LINE
+		wp user create $1 $2 --user_pass=$3
+	done < /run/secrets/wp_credentials
 	
 	# SETUP REDIS CACHE
 	# wp config set WP_REDIS_DISABLED false --raw
@@ -53,4 +63,4 @@ fi
 chown -R www-data:www-data /website
 
 # LAUNCH PHP-FPM
-exec $@
+exec $ENTRY_ARGS
