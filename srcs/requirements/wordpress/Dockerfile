@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 04:48:07 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/20 19:43:30 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/11/20 21:10:54 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ COPY tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 WORKDIR /website
+
+RUN adduser -D -S -G www-data -u 82 www-data && chown www-data:www-data /website
 
 EXPOSE 9000
 

@@ -4,7 +4,6 @@ until nc -z -v mariadb 3306; do
 	sleep 1
 done
 
-
 if ! wp core is-installed ; then
 	# DOWNLOAD WORDPRESS
 	wp core download
@@ -50,6 +49,8 @@ if ! wp core is-installed ; then
 		wp theme activate $WP_THEME
 	fi
 fi
+
+chown -R www-data:www-data /website
 
 # LAUNCH PHP-FPM
 exec $@
