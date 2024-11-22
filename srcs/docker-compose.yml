@@ -72,7 +72,8 @@ services:
       - wp-website:/home/www-data
     ports:
       - "21:21"
-      - "20:20"
+    networks:
+      - ftp
     restart: on-failure
 
 volumes:
@@ -94,6 +95,8 @@ networks:
   wp-network:
     driver: bridge
   db-network:
+    driver: bridge
+  ftp:
     driver: bridge
 
 secrets:
