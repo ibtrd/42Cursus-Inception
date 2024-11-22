@@ -1,6 +1,7 @@
 services:
   nginx:
     build: requirements/nginx
+    container_name: nginx
     volumes:
       - wp-website:/website
     ports:
@@ -12,15 +13,14 @@ services:
     secrets:
       - ssl_cert
       - ssl_key
-    restart:
-      on-failure
+    restart: on-failure
 
   wordpress:
     build:
       context: requirements/wordpress
       args:
         - WP_CLI_URL=${WP_CLI_URL}
-    
+    container_name: wordpress
     volumes:
       - wp-website:/website
     networks:
@@ -29,6 +29,7 @@ services:
     environment:
       - DOMAIN=${DOMAIN}
       - WP_THEME=${WP_THEME}
+      - WP_DEBUG=true
     secrets:
       -  mysql_database
       -  mysql_user
@@ -36,11 +37,11 @@ services:
       -  wp_credentials
     depends_on:
       - mariadb
-    restart:
-      on-failure
+    restart: on-failure
 
   mariadb:
     build: requirements/mariadb
+    container_name: mariadb
     volumes:
       - wp-database:/var/lib/mysql
     networks:
@@ -50,16 +51,29 @@ services:
       -  mysql_database
       -  mysql_user
       -  mysql_password
-    restart:
-      on-failure
+    restart: on-failure
 
   redis:
     build: requirements/redis
+    container_name: redis
     networks:
       - wp-network
+    restart: on-failure
 
   # adminer:
   #   build: requirements/adminer
+  #   container_name: adminer
+  #   restart: on-failure
+
+  proftpd:
+    build: requirements/proftpd
+    container_name: proftpd
+    volumes:
+      - wp-website:/home/www-data
+    ports:
+      - "21:21"
+      - "20:20"
+    restart: on-failure
 
 volumes:
   wp-website:
