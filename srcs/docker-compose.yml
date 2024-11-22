@@ -7,7 +7,7 @@ services:
     ports:
       - "443:443"
     networks:
-      - wordpress
+      - website
     environment:
       - DOMAIN=${DOMAIN}
     secrets:
@@ -24,7 +24,7 @@ services:
     volumes:
       - website:/website
     networks:
-      - wordpress
+      - website
       - database
     environment:
       - DOMAIN=${DOMAIN}
@@ -57,7 +57,7 @@ services:
     build: requirements/redis
     container_name: redis
     networks:
-      - wordpress
+      - website
     restart: on-failure
 
   # adminer:
@@ -78,6 +78,13 @@ services:
       - proftpd_password
     restart: on-failure
 
+  react_app:
+    build: requirements/react_app
+    container_name: react_app
+    networks:
+      - website
+    restart: on-failure
+
 volumes:
   website:
     driver: local
@@ -94,7 +101,7 @@ volumes:
       o: bind
 
 networks:
-  wordpress:
+  website:
     driver: bridge
   database:
     driver: bridge
