@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 04:49:05 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/20 20:16:13 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/11/22 12:22:06 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ COMPOSE_CMD := docker compose -p $(NAME) -f $(COMPOSE_FILE)
 
 VOL_DIR := $(HOME)/data/
 VOL_NAMES := \
-	wp-website \
-	wp-database
+	website \
+	database
 VOLUMES := $(addprefix $(VOL_DIR), $(VOL_NAMES))
 
 

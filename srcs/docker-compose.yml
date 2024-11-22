@@ -3,11 +3,11 @@ services:
     build: requirements/nginx
     container_name: nginx
     volumes:
-      - wp-website:/website
+      - website:/website
     ports:
       - "443:443"
     networks:
-      - wp-network
+      - wordpress
     environment:
       - DOMAIN=${DOMAIN}
     secrets:
@@ -22,10 +22,10 @@ services:
         - WP_CLI_URL=${WP_CLI_URL}
     container_name: wordpress
     volumes:
-      - wp-website:/website
+      - website:/website
     networks:
-      - wp-network
-      - db-network
+      - wordpress
+      - database
     environment:
       - DOMAIN=${DOMAIN}
       - WP_THEME=${WP_THEME}
@@ -43,9 +43,9 @@ services:
     build: requirements/mariadb
     container_name: mariadb
     volumes:
-      - wp-database:/var/lib/mysql
+      - database:/var/lib/mysql
     networks:
-      - db-network
+      - database
     secrets:
       -  mysql_root_password
       -  mysql_database
@@ -57,7 +57,7 @@ services:
     build: requirements/redis
     container_name: redis
     networks:
-      - wp-network
+      - wordpress
     restart: on-failure
 
   # adminer:
@@ -69,32 +69,34 @@ services:
     build: requirements/proftpd
     container_name: proftpd
     volumes:
-      - wp-website:/home/www-data
+      - website:/home/www-data
     ports:
       - "21:21"
     networks:
       - ftp
+    secrets:
+      - proftpd_password
     restart: on-failure
 
 volumes:
-  wp-website:
+  website:
     driver: local
     driver_opts:
       type: none
-      device: /home/ibertran/data/wp-website
+      device: /home/ibertran/data/website
       o: bind
   
-  wp-database:
+  database:
     driver: local
     driver_opts:
       type: none
-      device: /home/ibertran/data/wp-database
+      device: /home/ibertran/data/database
       o: bind
 
 networks:
-  wp-network:
+  wordpress:
     driver: bridge
-  db-network:
+  database:
     driver: bridge
   ftp:
     driver: bridge
@@ -114,3 +116,5 @@ secrets:
     file: ../secrets/mariadb/mysql_password.txt
   wp_credentials:
     file: ../secrets/wordpress/wp_credentials.txt
+  proftpd_password:
+    file: ../secrets/proftpd/proftpd_password.txt
