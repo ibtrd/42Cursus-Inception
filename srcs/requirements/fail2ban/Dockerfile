@@ -5,22 +5,15 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/21 17:16:39 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/22 21:15:02 by ibertran         ###   ########lyon.fr    #
+#    Created: 2024/11/22 13:07:50 by ibertran          #+#    #+#              #
+#    Updated: 2024/11/22 20:25:06 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 FROM alpine:3.19
 
-RUN apk add --no-cache proftpd
+RUN apk add --no-cache fail2ban
 
-COPY conf/proftpd.conf /etc/proftpd/
+ENTRYPOINT [ "tail", "-f", "/dev/null" ]
 
-COPY tools/entrypoint.sh /usr/bin/entrypoint.sh
-RUN chmod +x /usr/bin/entrypoint.sh
 
-RUN adduser -S -G www-data -u 82 www-data
-RUN mkdir /run/proftpd && chown -R proftpd:proftpd /run/proftpd /var/log/proftpd
-
-ENTRYPOINT [ "entrypoint.sh" ]
-CMD [ "proftpd", "-c", "/etc/proftpd/proftpd.conf", "-n" ]

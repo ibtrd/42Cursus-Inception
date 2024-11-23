@@ -53,6 +53,19 @@ services:
       -  mysql_password
     restart: on-failure
 
+  proftpd:
+    build: requirements/proftpd
+    container_name: proftpd
+    volumes:
+      - website:/home/www-data
+    networks:
+      - ftp
+    ports:
+      - "21:21"
+    secrets:
+      - proftpd_password
+    restart: on-failure
+
   redis:
     build: requirements/redis
     container_name: redis
@@ -65,25 +78,17 @@ services:
   #   container_name: adminer
   #   restart: on-failure
 
-  proftpd:
-    build: requirements/proftpd
-    container_name: proftpd
-    volumes:
-      - website:/home/www-data
-    ports:
-      - "21:21"
-    networks:
-      - ftp
-    secrets:
-      - proftpd_password
-    restart: on-failure
-
   react_app:
     build: requirements/react_app
     container_name: react_app
     networks:
       - website
     restart: on-failure
+  
+  # fail2ban:
+  #   build: requirements/fail2ban
+  #   container_name: fail2ban
+  #   restart: on-failure
 
 volumes:
   website:
