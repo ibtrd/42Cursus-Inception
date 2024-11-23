@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/22 13:07:50 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/22 16:19:59 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/11/22 18:37:53 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ RUN apk add --no-cache npm
 
 WORKDIR /app
 
-COPY test .
+COPY calculator .
 
 RUN npm install \
 	&& npm run build \
