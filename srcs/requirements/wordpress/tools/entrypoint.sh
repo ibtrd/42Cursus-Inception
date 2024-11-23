@@ -40,14 +40,13 @@ if ! wp core is-installed ; then
 	done < /run/secrets/wp_credentials
 	
 	# SETUP REDIS CACHE
-	# wp config set WP_REDIS_DISABLED false --raw
-	wp config set WP_REDIS_HOST 'redis'
-	wp config set WP_REDIS_PORT 6379 --raw
-	wp config set WP_REDIS_MAXTTL 3600 --raw
-	wp config set WP_REDIS_TIMEOUT 1.5 --raw
-	wp config set WP_REDIS_READ_TIMEOUT 1.5 --raw
-	wp plugin install redis-cache --activate
-	# wp redis enable
+	wp config set WP_REDIS_HOST 'redis' \
+		&& wp config set WP_REDIS_PORT 6379 --raw \
+		&& wp config set WP_REDIS_MAXTTL 3600 --raw \
+		&& wp config set WP_REDIS_TIMEOUT 1.5 --raw \
+		&& wp config set WP_REDIS_READ_TIMEOUT 1.5 --raw \
+		&& wp plugin install redis-cache --activate \
+		&& wp redis enable
 
 	# SET THEME
 	if ! wp theme is-installed $WP_THEME; then

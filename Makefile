@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 04:49:05 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/22 12:22:06 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/11/22 20:37:44 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,10 @@ restart:
 .PHONY: build
 build: $(SSL_CERT) $(SSL_KEY)
 	$(COMPOSE_CMD) build
+
+.PHONY: ps
+ps:
+	$(COMPOSE_CMD) ps
 
 $(VOLUMES) $(SECRETS_DIR):
 	mkdir -p $@
