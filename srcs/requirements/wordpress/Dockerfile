@@ -6,11 +6,11 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 04:48:07 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/21 11:59:16 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/11/22 19:31:12 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
-FROM alpine:3.19 as downloader
+FROM alpine:3.19 AS downloader
 
 ARG WP_CLI_URL
 
