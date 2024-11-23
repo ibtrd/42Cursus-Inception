@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 04:48:07 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/22 19:31:12 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/11/22 22:10:20 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ RUN apk add --no-cache \
 	php82-mysqli \
 	php82-mbstring \
 	php82-fpm \
-	php-curl
+	php82-curl \
+	php82-ctype
 
 COPY --from=downloader wp-cli.phar /usr/local/bin/wp
 
