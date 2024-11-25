@@ -13,6 +13,12 @@ services:
     secrets:
       - ssl_cert
       - ssl_key
+    depends_on:
+      - wordpress
+      - proftpd
+      - adminer
+      - cadvisor
+      - react_app
     restart: on-failure
 
   wordpress:
@@ -37,6 +43,7 @@ services:
       -  wp_credentials
     depends_on:
       - mariadb
+      - redis
     restart: on-failure
 
   mariadb:
@@ -91,10 +98,21 @@ services:
       - website
     restart: on-failure
   
-  # fail2ban:
-  #   build: requirements/fail2ban
-  #   container_name: fail2ban
-  #   restart: on-failure
+  cadvisor:
+    build:
+      context: requirements/cadvisor
+      args:
+        - CADVISOR_DOWNLOAD_URL=${CADVISOR_DOWNLOAD_URL}
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - website
+    restart: on-failure
 
 volumes:
   website:

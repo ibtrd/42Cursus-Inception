@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 04:49:05 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/22 20:37:44 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/11/24 19:43:42 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ fclean: down
 	-sudo rm -rf $$HOME/data
 
 .PHONY: re
-re: fclean
+re: down
 	$(MAKE) build
 	$(MAKE)
 
