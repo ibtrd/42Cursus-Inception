@@ -13,6 +13,7 @@ services:
     secrets:
       - ssl_cert
       - ssl_key
+      - htpasswd
     depends_on:
       - wordpress
       - proftpd
@@ -61,7 +62,7 @@ services:
     restart: on-failure
 
   proftpd:
-    build: requirements/proftpd
+    build: requirements/bonus/proftpd
     container_name: proftpd
     volumes:
       - website:/home/www-data
@@ -74,7 +75,7 @@ services:
     restart: on-failure
 
   redis:
-    build: requirements/redis
+    build: requirements/bonus/redis
     container_name: redis
     networks:
       - website
@@ -82,7 +83,7 @@ services:
 
   adminer:
     build:
-      context: requirements/adminer
+      context: requirements/bonus/adminer
       args:
         - ADMINER_DOWNLOAD_URL=${ADMINER_DOWNLOAD_URL}
     container_name: adminer
@@ -92,7 +93,7 @@ services:
     restart: on-failure
 
   react_app:
-    build: requirements/react_app
+    build: requirements/bonus/react_app
     container_name: react_app
     networks:
       - website
@@ -100,7 +101,7 @@ services:
   
   cadvisor:
     build:
-      context: requirements/cadvisor
+      context: requirements/bonus/cadvisor
       args:
         - CADVISOR_DOWNLOAD_URL=${CADVISOR_DOWNLOAD_URL}
     container_name: cadvisor
@@ -154,3 +155,5 @@ secrets:
     file: ../secrets/wordpress/wp_credentials.txt
   proftpd_password:
     file: ../secrets/proftpd/proftpd_password.txt
+  htpasswd:
+    file: ../secrets/htpasswd
