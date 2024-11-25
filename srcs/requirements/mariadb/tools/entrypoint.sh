@@ -8,7 +8,8 @@ then
 	export MYSQL_ROOT_PASSWORD=$(cat /run/secrets/mysql_root_password)
 	export MYSQL_USER=$(cat /run/secrets/mysql_user)
 	export MYSQL_PASSWORD=$(cat /run/secrets/mysql_password)
-	envsubst < /run/initdb.sql | sponge /run/initdb.sql
+	envsubst < /run/initdb.sql > /run/initdb.sql.tmp
+	mv /run/initdb.sql.tmp /run/initdb.sql
 	exec $@ --init-file=/run/initdb.sql
 else
 	exec $@

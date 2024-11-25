@@ -20,7 +20,7 @@ services:
       - adminer
       - cadvisor
       - react_app
-    restart: on-failure
+    restart: always
 
   wordpress:
     build:
@@ -45,7 +45,7 @@ services:
     depends_on:
       - mariadb
       - redis
-    restart: on-failure
+    restart: always
 
   mariadb:
     build: requirements/mariadb
@@ -59,7 +59,7 @@ services:
       -  mysql_database
       -  mysql_user
       -  mysql_password
-    restart: on-failure
+    restart: always
 
   proftpd:
     build: requirements/bonus/proftpd
@@ -72,14 +72,14 @@ services:
       - "21:21"
     secrets:
       - proftpd_password
-    restart: on-failure
+    restart: always
 
   redis:
     build: requirements/bonus/redis
     container_name: redis
     networks:
       - website
-    restart: on-failure
+    restart: always
 
   adminer:
     build:
@@ -90,14 +90,14 @@ services:
     networks:
       - website
       - database
-    restart: on-failure
+    restart: always
 
   react_app:
     build: requirements/bonus/react_app
     container_name: react_app
     networks:
       - website
-    restart: on-failure
+    restart: always
   
   cadvisor:
     build:
@@ -113,7 +113,7 @@ services:
       - /dev/disk/:/dev/disk:ro
     networks:
       - website
-    restart: on-failure
+    restart: always
 
 volumes:
   website:

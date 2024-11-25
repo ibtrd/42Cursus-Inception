@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 04:49:05 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/24 19:43:42 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/11/25 16:26:36 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,6 @@ ps:
 
 $(VOLUMES) $(SECRETS_DIR):
 	mkdir -p $@
-
-.PHONY: exec-%
-exec-%:
-	docker exec -it $(shell echo $(patsubst exec-%,%,$@) | sed 's/-/ /g')
 
 .PHONY: sh-%
 sh-%:
