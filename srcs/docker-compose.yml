@@ -73,10 +73,16 @@ services:
       - website
     restart: on-failure
 
-  # adminer:
-  #   build: requirements/adminer
-  #   container_name: adminer
-  #   restart: on-failure
+  adminer:
+    build:
+      context: requirements/adminer
+      args:
+        - ADMINER_DOWNLOAD_URL=${ADMINER_DOWNLOAD_URL}
+    container_name: adminer
+    networks:
+      - website
+      - database
+    restart: on-failure
 
   react_app:
     build: requirements/react_app
