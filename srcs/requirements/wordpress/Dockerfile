@@ -6,22 +6,22 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 04:48:07 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/26 04:12:09 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/11/26 04:13:08 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 FROM alpine:3.19
 
 RUN apk add --no-cache \
-redis \
-php82-tokenizer \
-php82-redis \
-php82-phar \
-php82-mysqli \
-php82-mbstring \
-php82-fpm \
-php82-curl \
-php82-ctype
+	redis \
+	php82-tokenizer \
+	php82-redis \
+	php82-phar \
+	php82-mysqli \
+	php82-mbstring \
+	php82-fpm \
+	php82-curl \
+	php82-ctype
 
 ARG WPCLI_DOWNLOAD_URL
 
