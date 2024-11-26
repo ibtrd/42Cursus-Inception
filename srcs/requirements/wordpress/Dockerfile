@@ -6,7 +6,7 @@
 #    By: ibertran <ibertran@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 04:48:07 by ibertran          #+#    #+#              #
-#    Updated: 2024/11/25 15:31:47 by ibertran         ###   ########lyon.fr    #
+#    Updated: 2024/11/26 04:12:09 by ibertran         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,11 @@ php82-fpm \
 php82-curl \
 php82-ctype
 
-ARG WP_CLI_URL
+ARG WPCLI_DOWNLOAD_URL
 
-RUN wget ${WP_CLI_URL} \
-	&& chmod +x $(basename ${WP_CLI_URL}) \
-	&& mv $(basename ${WP_CLI_URL}) /usr/local/bin/wp
+RUN wget ${WPCLI_DOWNLOAD_URL} \
+	&& chmod +x $(basename ${WPCLI_DOWNLOAD_URL}) \
+	&& mv $(basename ${WPCLI_DOWNLOAD_URL}) /usr/local/bin/wp
 
 COPY conf/www.conf /etc/php82/php-fpm.d/www.conf
 COPY tools/entrypoint.sh /usr/local/bin/entrypoint.sh

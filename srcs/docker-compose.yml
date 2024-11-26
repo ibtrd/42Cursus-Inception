@@ -26,7 +26,7 @@ services:
     build:
       context: requirements/wordpress
       args:
-        - WP_CLI_URL=${WP_CLI_URL}
+        - WPCLI_DOWNLOAD_URL=${WPCLI_DOWNLOAD_URL}
     container_name: wordpress
     volumes:
       - website:/website
